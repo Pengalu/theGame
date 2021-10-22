@@ -21,3 +21,5 @@ cleantest : $(OBJS)
 	./$(OBJ_NAME)
 clean : $(OBJS)
 	rm $(OBJ_NAME)
+allexe : $(OBJS)
+	$(CC) $(OBJS) $(CC_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME).exe

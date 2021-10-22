@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+bool on_pause = false;
+
 Engine::Engine()
 {
     Vector2f resolution;

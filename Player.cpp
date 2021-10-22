@@ -5,7 +5,7 @@ Player::Player()
     xSpeed = 400;
     ySpeed = 400;
     weight = 10;
-    texture.loadFromFile("gay.png");
+    texture.loadFromFile("tf2.png");
     sprite.setTexture(texture);
     position.x = 500;
     position.y = 800;

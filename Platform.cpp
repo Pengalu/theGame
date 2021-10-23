@@ -6,6 +6,7 @@ Platform::Platform()
     position.y = 50;
     platShape.setSize(Vector2f(50, 5));
     platShape.setPosition(position);
+    platShape.setFillColor(sf::Color::Black);
 }
 
 FloatRect Platform::getPosition()

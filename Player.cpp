@@ -2,9 +2,11 @@
 
 Player::Player()
 {
+    resolution.x = VideoMode::getDesktopMode().width;
+    resolution.y = VideoMode::getDesktopMode().height;
     xSpeed = 400;
     ySpeed = 400;
-    weight = 10;
+    weight = 500;
     texture.loadFromFile("gay.png");
     sprite.setTexture(texture);
     position.x = 500;
@@ -60,9 +62,13 @@ void Player::stopRight()
 void Player::update(float elapsedTime)
 {   
     // if statements for jumping, moving right, moving left
-    if (wPressed && velocity.y < 500)
+    if (wPressed && velocity.y < 500 && onGround)
     {
-        velocity.y += ySpeed * elapsedTime;
+        velocity.y += ySpeed * elapsedTime * 50;
+    }
+    if (sPressed && velocity.y > -500)
+    {
+        velocity.y -= ySpeed * elapsedTime * 5;
     }
     if (dPressed && velocity.x < 500)
     {
@@ -73,7 +79,7 @@ void Player::update(float elapsedTime)
         velocity.x -= (xSpeed * elapsedTime) * 3;
     }
 
-    // if statements for decreasing velocities while not moving
+    // if statements for changing velocities while not moving
     if (!dPressed && !aPressed)
     {
         if (velocity.x < 0)
@@ -85,17 +91,17 @@ void Player::update(float elapsedTime)
             velocity.x -= velocity.x * elapsedTime * 2;
         }
     }
-    if (!wPressed && !sPressed)
+    if (!onGround)
     {
-
-    }   
-    if (position.y < 0)
+        velocity.y -= weight * elapsedTime;
+    }
+    if (position.y < resolution.y - texture.getSize().y)
     {
         position.y -= elapsedTime * velocity.y;
     }
-    else
+    else if (!onGround && velocity.y < 0)
     {
-        position.y = 0;
+        position.y = 1080 - texture.getSize().y;
         velocity.y = 0;
         onGround = true;
     }

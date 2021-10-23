@@ -5,6 +5,7 @@ using namespace sf;
 class Player
 {
 private:
+    Vector2f resolution;
     Vector2f position;
     Vector2f velocity;
     Sprite sprite;

@@ -1,6 +1,6 @@
 CC=g++
 OBJS=Main.cpp Engine.h Engine.cpp Player.h Player.cpp Platform.h Platform.cpp Input.cpp Draw.cpp Update.cpp 
-OBJ_NAME=game
+OBJ_NAME=game.out
 LINKER_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 CC_FLAGS=
 

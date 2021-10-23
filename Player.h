@@ -1,5 +1,9 @@
 #pragma once
-#include "SFML/Graphics.hpp"
+#ifdef _WIN32 || _WIN64
+#include "SFML\Graphics.hpp"
+#elif __linux__ || __unix || __unix__
+#include "SFML/Graphics.hpp" 
+#endif
 using namespace sf;
 
 class Player

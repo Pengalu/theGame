@@ -65,6 +65,7 @@ void Player::update(float elapsedTime)
     if (wPressed && velocity.y < 500 && onGround)
     {
         velocity.y += ySpeed * elapsedTime * 50;
+        onGround = false;
     }
     if (sPressed && velocity.y > -500)
     {
@@ -72,11 +73,11 @@ void Player::update(float elapsedTime)
     }
     if (dPressed && velocity.x < 500)
     {
-        velocity.x += (xSpeed * elapsedTime) * 3;
+        velocity.x += (xSpeed * elapsedTime) * 5;
     }
     if (aPressed && velocity.x > -500)
     {
-        velocity.x -= (xSpeed * elapsedTime) * 3;
+        velocity.x -= (xSpeed * elapsedTime) * 5;
     }
 
     // if statements for changing velocities while not moving
@@ -84,27 +85,24 @@ void Player::update(float elapsedTime)
     {
         if (velocity.x < 0)
         {
-            velocity.x += abs(velocity.x) * elapsedTime * 2;
+            velocity.x += abs(velocity.x) * elapsedTime * (xSpeed / 100);
         }
         else
         {
-            velocity.x -= velocity.x * elapsedTime * 2;
+            velocity.x -= velocity.x * elapsedTime * (xSpeed / 100);
         }
     }
     if (!onGround)
     {
         velocity.y -= weight * elapsedTime;
     }
-    if (position.y < resolution.y - texture.getSize().y)
+    if (position.y > 1080 - sprite.getGlobalBounds().height)
     {
-        position.y -= elapsedTime * velocity.y;
-    }
-    else if (!onGround && velocity.y < 0)
-    {
-        position.y = 1080 - texture.getSize().y;
+        position.y = 1080 - sprite.getGlobalBounds().height;
         velocity.y = 0;
         onGround = true;
     }
+    position.y -= elapsedTime * velocity.y;
     position.x += elapsedTime * velocity.x;
     sprite.setPosition(position);
 }

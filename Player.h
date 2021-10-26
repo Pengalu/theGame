@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Base.h"
 using namespace sf;
 
-class Player
+class Player : public BaseObject
 {
 private:
-    Vector2f resolution;
     Vector2f position;
     Vector2f velocity;
     Sprite sprite;

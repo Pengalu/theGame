@@ -2,8 +2,6 @@
 
 Player::Player()
 {
-    resolution.x = VideoMode::getDesktopMode().width;
-    resolution.y = VideoMode::getDesktopMode().height;
     xSpeed = 400;
     ySpeed = 400;
     weight = 500;
@@ -64,24 +62,20 @@ void Player::update(float elapsedTime)
     // if statements for jumping, moving right, moving left
     if (wPressed && velocity.y < 500 && onGround)
     {
-        velocity.y += ySpeed * elapsedTime * 50;
+        velocity.y += ySpeed * 2;
         onGround = false;
-    }
-    if (sPressed && velocity.y > -500)
-    {
-        velocity.y -= ySpeed * elapsedTime * 5;
     }
     if (dPressed && velocity.x < 500)
     {
-        velocity.x += (xSpeed * elapsedTime) * 5;
+        velocity.x += (xSpeed * elapsedTime) * 7.5;
     }
     if (aPressed && velocity.x > -500)
     {
-        velocity.x -= (xSpeed * elapsedTime) * 5;
+        velocity.x -= (xSpeed * elapsedTime) * 7.5;
     }
 
     // if statements for changing velocities while not moving
-    if (!dPressed && !aPressed)
+    if (!dPressed && !aPressed && onGround)
     {
         if (velocity.x < 0)
         {
@@ -94,7 +88,7 @@ void Player::update(float elapsedTime)
     }
     if (!onGround)
     {
-        velocity.y -= weight * elapsedTime;
+        velocity.y -= weight * elapsedTime * 1.8;
     }
     if (position.y > 1080 - sprite.getGlobalBounds().height)
     {

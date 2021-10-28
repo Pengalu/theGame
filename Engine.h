@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <list>
+#include <iterator>Q
 #include "Player.h"
-#include "Platform.h"
 using namespace sf;
 
 class Engine
@@ -12,9 +13,9 @@ private:
     Sprite backgroundSprite;
     Texture backgroundTexture;
     Player player;
-    Platform platform;
     bool on_pause;
-    // handled by Input.cpp
+    void collision();
+    // input.cpp
     void input();
     // handled by Update.cpp
     void update(float dtAsSeconds);

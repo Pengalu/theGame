@@ -1,2 +1,6 @@
+# for compiled game
 *.out
 *.exe
+
+# for save files
+*.dat

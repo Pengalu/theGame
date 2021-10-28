@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Base.h"
-using namespace sf;
 
 class Player : public BaseObject
 {
@@ -10,24 +8,25 @@ private:
     Vector2f velocity;
     Sprite sprite;
     Texture texture;
-    bool aPressed;
-    bool dPressed;
-    bool wPressed;
-    bool sPressed;
-    bool onGround;
+    bool leftPressed;
+    bool rightPressed;
+    bool upPressed;
+    bool downPressed;
     float xSpeed;
     float ySpeed;
     float weight;
+    enum State
+    {
+        stateStanding,
+        stateRunning,
+        stateJumping,
+        stateFalling,
+        stateDucking
+    };
+    State state_;
 public:
     Player();
     Sprite getSprite();
-    void moveUp();
-    void moveDown();
-    void moveLeft();
-    void moveRight();
-    void stopUp();
-    void stopDown();
-    void stopLeft();
-    void stopRight();
+    void handleInput();
     void update(float elapsedTime);
 };

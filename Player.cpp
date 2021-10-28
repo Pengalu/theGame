@@ -11,6 +11,7 @@ Player::Player()
     position.y = 800;
     velocity.x = 0;
     velocity.y = 0;
+    state_ = stateStanding;
 }
 
 Sprite Player::getSprite()
@@ -18,83 +19,104 @@ Sprite Player::getSprite()
     return sprite;
 }
 
-void Player::moveUp()
+void Player::handleInput()
 {
-    wPressed = true;
-}
-
-void Player::moveDown()
-{
-    sPressed = true;
-}
-void Player::moveLeft()
-{
-    aPressed = true;
-}
-
-void Player::moveRight()
-{
-    dPressed = true;
-}
-
-void Player::stopUp()
-{
-    wPressed = false;
-}
-
-void Player::stopDown()
-{
-    sPressed = false;
-}
-
-void Player::stopLeft()
-{
-    aPressed = false;
-}
-
-void Player::stopRight()
-{
-    dPressed = false;
+    if (Keyboard::isKeyPressed(Keyboard::W))
+    {
+        upPressed = true;
+    }
+    else
+    {
+        upPressed = false;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::A))
+    {
+        leftPressed = true;
+    }
+    else
+    {
+        leftPressed = false;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::S))
+    {
+        downPressed = true;
+    }
+    else
+    {
+        downPressed = false;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::D))
+    {
+        rightPressed = true;
+    }
+    else
+    {
+        rightPressed = false;
+    }
 }
 
 void Player::update(float elapsedTime)
-{   
-    // if statements for jumping, moving right, moving left
-    if (wPressed && velocity.y < 500 && onGround)
+{
+    switch (state_) 
     {
-        velocity.y += ySpeed * 2;
-        onGround = false;
-    }
-    if (dPressed && velocity.x < 500)
-    {
-        velocity.x += (xSpeed * elapsedTime) * 7.5;
-    }
-    if (aPressed && velocity.x > -500)
-    {
-        velocity.x -= (xSpeed * elapsedTime) * 7.5;
-    }
-
-    // if statements for changing velocities while not moving
-    if (!dPressed && !aPressed && onGround)
-    {
-        if (velocity.x < 0)
-        {
-            velocity.x += abs(velocity.x) * elapsedTime * (xSpeed / 100);
-        }
-        else
-        {
-            velocity.x -= velocity.x * elapsedTime * (xSpeed / 100);
-        }
-    }
-    if (!onGround)
-    {
-        velocity.y -= weight * elapsedTime * 1.8;
-    }
-    if (position.y > 1080 - sprite.getGlobalBounds().height)
-    {
-        position.y = 1080 - sprite.getGlobalBounds().height;
-        velocity.y = 0;
-        onGround = true;
+        case (stateStanding):
+            if (rightPressed)
+            {
+                state_ = stateRunning;
+                velocity.x += xSpeed * elapsedTime * 7.5;
+            }
+            if (leftPressed)
+            {
+                state_ = stateRunning;
+                velocity.x -= xSpeed * elapsedTime * 7.5;
+            }
+/*             if (upPressed)
+            {
+                state_ = stateJumping;
+                velocity.y += ySpeed * 2;
+            } */
+            if (downPressed)
+            {
+                state_ = stateDucking;
+            }
+        case (stateRunning):
+            if (velocity.x < 0)
+            {
+                velocity.x += abs(velocity.x) * elapsedTime * (xSpeed / 100);
+            }
+            else 
+            {
+                velocity.x -= velocity.x * elapsedTime * (xSpeed / 100);
+            }
+            if (rightPressed)
+            {
+                velocity.x += xSpeed * elapsedTime * 7.5;
+            }
+            if (leftPressed)
+            {
+                velocity.x -= xSpeed * elapsedTime * 7.5;
+            }
+/*             if (upPressed)
+            {
+                state_ = stateJumping;
+                velocity.y += ySpeed * 2;
+            } */
+            if (velocity.x == 0)
+            {
+                state_ = stateStanding;
+            }
+        case (stateJumping):
+            if (velocity.y < 0)
+            {
+                state_ = stateFalling;
+            }
+            if (velocity.y > 500)
+            {
+            }
+        case (stateFalling):
+            break;
+        case (stateDucking):
+            break;
     }
     position.y -= elapsedTime * velocity.y;
     position.x += elapsedTime * velocity.x;

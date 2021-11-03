@@ -1,5 +1,3 @@
-# for compiled game
 game*
-
-# for save files
-*.dat
+*dat
+Makefile

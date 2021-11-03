@@ -4,3 +4,4 @@ WorkingDirectory::WorkingDirectory()
 {
     path = "./";
 }
+    

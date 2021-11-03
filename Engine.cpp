@@ -8,13 +8,24 @@ Engine::Engine()
     delta = clock.restart().asSeconds();
 }
 
+void Engine::updateInput() { input.update(); }
+
 void Engine::update()
 {
     window.update();
     const sf::Vector2f& spritePos = TF2Sprite.getPosition();
-    const int pixelsMoving = 100;
-    float frameMovement = pixelsMoving * delta;
-    TF2Sprite.setPosition(spritePos.x + frameMovement, spritePos.y);
+    const int moveSpeed = 100;
+    int xMove = 0;
+    int yMove = 0;
+    if (input.isKeyPressed(Input::Key::Left)) { xMove = -moveSpeed; }
+    else if (input.isKeyPressed(Input::Key::Right)) { xMove = moveSpeed; }
+    if (input.isKeyPressed(Input::Key::Up)) { yMove = -moveSpeed; }
+    else if (input.isKeyPressed(Input::Key::Down)) { yMove = moveSpeed; }
+    float yFrameMove = yMove * delta;
+    float xFrameMove = xMove * delta;
+    TF2Sprite.setPosition(spritePos.x + xFrameMove, spritePos.y + yFrameMove);
+    
+
 }
 
 

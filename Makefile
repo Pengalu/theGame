@@ -1,5 +1,5 @@
 CC=g++
-in=Engine.cpp Engine.hpp Main.cpp Window.cpp Window.hpp WorkingDirectory.cpp WorkingDirectory.hpp Bitmask.cpp Bitmask.hpp Input.cpp Input.hpp
+in=*.hpp *.cpp
 out=game.out
 linkerflags=-lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 CCflags=-Wall

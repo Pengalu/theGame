@@ -7,6 +7,7 @@ int main()
     {
         engine.updateInput();
         engine.update();
+        engine.lateUpdate();
         engine.draw();
         engine.calculateDelta();
     }

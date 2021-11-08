@@ -3,36 +3,35 @@
 Engine::Engine()
 : window("pisser shitter B))))")
 {
-    TF2texture.loadFromFile(workingDir.get() + "Assets/TF2.png");
-    TF2Sprite.setTexture(TF2texture);
+    std::shared_ptr<SceneSplashScreen> splashScreen = std::make_shared<SceneSplashScreen>(workingDir, sceneStateMachine, window);
+    std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>(workingDir);
+    unsigned int splashScreenID = sceneStateMachine.Add(splashScreen);
+    unsigned int gameSceneID = sceneStateMachine.Add(gameScene);
+    splashScreen->setSwitchtoScene(gameSceneID);
+    sceneStateMachine.switchTo(splashScreenID);
     delta = clock.restart().asSeconds();
 }
 
-void Engine::updateInput() { input.update(); }
+void Engine::updateInput()
+{
+    sceneStateMachine.processInput();
+}
 
 void Engine::update()
 {
     window.update();
-    const sf::Vector2f& spritePos = TF2Sprite.getPosition();
-    const int moveSpeed = 100;
-    int xMove = 0;
-    int yMove = 0;
-    if (input.isKeyPressed(Input::Key::Left)) { xMove = -moveSpeed; }
-    else if (input.isKeyPressed(Input::Key::Right)) { xMove = moveSpeed; }
-    if (input.isKeyPressed(Input::Key::Up)) { yMove = -moveSpeed; }
-    else if (input.isKeyPressed(Input::Key::Down)) { yMove = moveSpeed; }
-    float yFrameMove = yMove * delta;
-    float xFrameMove = xMove * delta;
-    TF2Sprite.setPosition(spritePos.x + xFrameMove, spritePos.y + yFrameMove);
-    
-
+    sceneStateMachine.update(delta);
 }
 
+void Engine::lateUpdate()
+{
+    sceneStateMachine.lateUpdate(delta);
+}
 
 void Engine::draw()
 {
     window.beginDraw();
-    window.draw(TF2Sprite);
+    sceneStateMachine.draw(window);
     window.endDraw();
 }
 

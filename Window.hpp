@@ -10,6 +10,7 @@ public:
     void beginDraw();
     void draw(const sf::Drawable& drawable);
     void endDraw();
+    sf::Vector2u getCenter() const;
     bool isOpen() const;
 private:
     sf::RenderWindow window;

@@ -6,13 +6,17 @@ window(window), switchToState(0), currentSeconds(0.f), showForSeconds(3.f), text
 
 void SceneSplashScreen::onCreate()
 {
-    splashTexture.loadFromFile(workingdir.get() + "Assets/TF2.png");
-    splashSprite.setTexture(splashTexture);
-    sf::FloatRect spriteSize = splashSprite.getLocalBounds();
-    splashSprite.setOrigin(spriteSize.width * 0.5f, spriteSize.height * 0.5f);
-    splashSprite.setScale(0.5f, 0.5f);
-    sf::Vector2u windowCenter = window.getCenter();
-    splashSprite.setPosition(windowCenter.x, windowCenter.y);
+    int textureID = textureAllocator.add(workingdir.get() + "Assets/TF2.png");
+    if (textureID >= 0)
+    {
+        std::shared_ptr<sf::Texture> texture = textureAllocator.get(textureID);
+        splashSprite.setTexture(*texture);
+        sf::FloatRect spriteSize = splashSprite.getLocalBounds();
+        splashSprite.setOrigin(spriteSize.width * 0.5f, spriteSize.height * 0.5f);
+        splashSprite.setScale(0.5f, 0.5f);
+        sf::Vector2u windowCenter = window.getCenter();
+        splashSprite.setPosition(windowCenter.x, windowCenter.y);
+    }
 }
 
 void SceneSplashScreen::onActivate()

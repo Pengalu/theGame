@@ -20,7 +20,7 @@ public:
         {
             return -1;
         }
-        resources.insert(path, std::make_pair(currentID, resource));
+        resources.insert(std::make_pair(path, std::make_pair(currentID, resource)));
         return currentID++;
     }
 
@@ -28,7 +28,7 @@ public:
     {
         for (auto it = resources.begin(); it != resources.end(); ++it)
         {
-            if (it->first.second == id)
+            if (it->second.first == id)
             {
                 resources.erase(it->first);
             }

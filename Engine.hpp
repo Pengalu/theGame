@@ -19,6 +19,7 @@ public:
     bool isRunning() const;
     void calculateDelta();
 private:
+    ResourceAllocator<sf::Texture> textureAllocator;
     Window window;
     WorkingDirectory workingDir;
     sf::Clock clock;

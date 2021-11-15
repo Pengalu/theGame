@@ -1,14 +1,14 @@
-#include "Engine.hpp"
+#include "Game.hpp"
 
 int main()
 {
-    Engine engine;
-    while (engine.isRunning())
+    Game Game;
+    while (Game.isRunning())
     {
-        engine.updateInput();
-        engine.update();
-        engine.lateUpdate();
-        engine.draw();
-        engine.calculateDelta();
+        Game.updateInput();
+        Game.update();
+        Game.lateUpdate();
+        Game.draw();
+        Game.calculateDelta();
     }
 }

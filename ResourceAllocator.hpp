@@ -1,8 +1,8 @@
 #ifndef ResourceAllocator_hpp
 #define ResourceAllocator_hpp
+
 #include <map>
 #include <memory>
-#include <string>
 
 template<typename T>
 class ResourceAllocator
@@ -37,7 +37,7 @@ public:
 
     std::shared_ptr<T> get(int id)
     {
-        for (auto it = resources.begin(); it != resources.end(); it++)
+        for (auto it = resources.begin(); it != resources.end(); ++it)
         {
             if (it->second.first == id)
             {

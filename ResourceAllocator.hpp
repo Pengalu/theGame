@@ -1,8 +1,8 @@
 #ifndef ResourceAllocator_hpp
 #define ResourceAllocator_hpp
-
 #include <map>
 #include <memory>
+#include <string>
 
 template<typename T>
 class ResourceAllocator

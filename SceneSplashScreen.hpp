@@ -18,12 +18,16 @@ public:
 private:
     sf::Texture splashTexture;
     sf::Sprite splashSprite;
+
     WorkingDirectory& workingdir;
     SceneStateMachine& sceneStateMachine;
     Window& window;
+
     float showForSeconds;
     float currentSeconds;
+
     unsigned int switchToState;
+    
     ResourceAllocator<sf::Texture>& textureAllocator;
 };
 

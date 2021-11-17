@@ -8,6 +8,7 @@
 #include "C_Sprite.hpp"
 #include "C_KeyboardMovement.hpp"
 #include "ResourceAllocator.hpp"
+#include "ObjectCollection.hpp"
 
 class SceneGame : public Scene
 {
@@ -20,9 +21,9 @@ public:
     void lateUpdate(float deltaTime) override;
     void draw(Window& window) override;
 private:
-    std::shared_ptr<Object> player;
     WorkingDirectory& workingDir;
     Input input;
     ResourceAllocator<sf::Texture>& textureAllocator;
+    ObjectCollection objects;
 };
 #endif

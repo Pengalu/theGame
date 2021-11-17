@@ -5,12 +5,13 @@ SceneGame::SceneGame(WorkingDirectory& workingDir, ResourceAllocator<sf::Texture
 
 void SceneGame::onCreate()
 {
-    player = std::make_shared<Object>();
+    std::shared_ptr<Object> player = std::make_shared<Object>();
     auto sprite = player->addComponent<C_Sprite>();
     sprite->setTextureAllocator(&textureAllocator);
     sprite->load(workingDir.get() + "Assets/TF2.png");
     auto movement = player->addComponent<C_KeyboardMovement>();
     movement->setInput(&input);
+    objects.add(player);
 }
 
 void SceneGame::onDestroy() {}
@@ -22,15 +23,17 @@ void SceneGame::processInput()
 
 void SceneGame::update(float deltaTime)
 {
-    player->update(deltaTime);
+    objects.processRemovals();
+    objects.processNewObjects();
+    objects.update(deltaTime);
 }
 
 void SceneGame::lateUpdate(float deltaTime)
 {
-    player->lateUpdate(deltaTime);
+    objects.update(deltaTime);
 }
 
 void SceneGame::draw(Window& window)
 {
-    player->draw(window);
+    objects.draw(window);
 }

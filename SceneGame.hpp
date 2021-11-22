@@ -1,6 +1,7 @@
 #ifndef SceneGame_hpp
 #define SceneGame_hpp
 
+#include "C_Animation.hpp"
 #include "Scene.hpp"
 #include "Input.hpp"
 #include "WorkingDirectory.hpp"

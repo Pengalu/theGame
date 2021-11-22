@@ -8,9 +8,19 @@ void SceneGame::onCreate()
     std::shared_ptr<Object> player = std::make_shared<Object>();
     auto sprite = player->addComponent<C_Sprite>();
     sprite->setTextureAllocator(&textureAllocator);
-    sprite->load(workingDir.get() + "Assets/TF2.png");
     auto movement = player->addComponent<C_KeyboardMovement>();
     movement->setInput(&input);
+    auto animation = player->addComponent<C_Animation>();
+    int textureID = textureAllocator.add(workingDir.get() + "Assets/Viking.png");
+    const int frameWidth = 165;
+    const int frameHeight = 145;
+    std::shared_ptr<Animation> idleAnimation = std::make_shared<Animation>();
+    const float idleAnimFrameSeconds = 0.2f;
+    idleAnimation->addFrame(textureID, 600, 0, frameWidth, frameHeight, idleAnimFrameSeconds);
+    idleAnimation->addFrame(textureID, 800, 0, frameWidth, frameHeight, idleAnimFrameSeconds);
+    idleAnimation->addFrame(textureID, 0, 145, frameWidth, frameHeight, idleAnimFrameSeconds);
+    idleAnimation->addFrame(textureID, 200, 145, frameWidth, frameHeight, idleAnimFrameSeconds);
+    animation->addAnimation(AnimationState::Idle, idleAnimation);
     objects.add(player);
 }
 

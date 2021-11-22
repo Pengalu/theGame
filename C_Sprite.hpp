@@ -14,9 +14,12 @@ public:
     void load(int id);
     void draw(Window& window) override;
     void lateUpdate(float deltaTime) override;
+    void setTextureRect(int x, int y, int width, int height);
+    void setTextureRect(const sf::IntRect& rect);
 private:
     ResourceAllocator<sf::Texture>* allocator;
     sf::Sprite sprite;
+    int curTextureID;
 };
 
 #endif

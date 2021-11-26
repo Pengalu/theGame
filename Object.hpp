@@ -40,8 +40,11 @@ public:
         return nullptr;
     };
     std::shared_ptr<C_Transform> transform;
+    bool isQueuedForRemoval();
+    void QueueForRemoval();
 private:
     std::vector<std::shared_ptr<Component>> components;
+    bool queuedForRemoval;
 };
 
 #endif

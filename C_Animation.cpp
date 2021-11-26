@@ -51,3 +51,11 @@ const AnimationState& C_Animation::getAnimationState() const
 {
     return curAnimation.first;
 }
+
+void C_Animation::setAnimationDirection(FacingDirection dir)
+{
+    if (curAnimation.first != AnimationState::None)
+    {
+        curAnimation.second->setDirection(dir);
+    }
+}

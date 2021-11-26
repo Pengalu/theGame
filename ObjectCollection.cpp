@@ -7,7 +7,7 @@ void ObjectCollection::add(std::shared_ptr<Object> object)
 
 void ObjectCollection::update(float deltaTime)
 {
-    for (auto& o : objects)
+    for (const auto& o : objects)
     {
         o->update(deltaTime);
     }
@@ -15,7 +15,7 @@ void ObjectCollection::update(float deltaTime)
 
 void ObjectCollection::lateUpdate(float deltaTime)
 {
-    for (auto& o : objects)
+    for (const auto& o : objects)
     {
         o->lateUpdate(deltaTime);
     }
@@ -23,7 +23,7 @@ void ObjectCollection::lateUpdate(float deltaTime)
 
 void ObjectCollection::draw(Window& window)
 {
-    for (auto& o : objects)
+    for (constauto& o : objects)
     {
         o->draw(window);
     }

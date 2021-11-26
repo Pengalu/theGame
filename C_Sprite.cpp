@@ -52,4 +52,4 @@ void C_Sprite::draw(Window& window)
 void C_Sprite::lateUpdate(float deltaTime)
 {
     sprite.setPosition(owner->transform->getPosition());
-}   
+}

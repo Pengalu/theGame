@@ -21,6 +21,7 @@ public:
     void addAnimation(AnimationState state, std::shared_ptr<Animation> animation);
     void setAnimationState(AnimationState state);
     const AnimationState& getAnimationState() const;
+    void setAnimationDirection(FacingDirection dir);
 private:
     std::shared_ptr<C_Sprite> sprite;
     std::map<AnimationState, std::shared_ptr<Animation>> animations;

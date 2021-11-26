@@ -2,7 +2,7 @@
 #include "Object.hpp"
 
 C_KeyboardMovement::C_KeyboardMovement(Object* owner)
-: Component(owner), moveSpeed(100) {}
+: Component(owner), moveSpeed(200) {}
 
 void C_KeyboardMovement::setInput(Input* input)
 {
@@ -24,10 +24,12 @@ void C_KeyboardMovement::update(float deltaTime)
     if (input->isKeyPressed(Input::Key::Left))
     {
         xMove = -moveSpeed;
+        animation->setAnimationDirection(FacingDirection::Left);
     }
     else if (input->isKeyPressed(Input::Key::Right))
     {
         xMove = moveSpeed;
+        animation->setAnimationDirection(FacingDirection::Right);
     }
     int yMove = 0;
     if (input->isKeyPressed(Input::Key::Up))
@@ -41,4 +43,18 @@ void C_KeyboardMovement::update(float deltaTime)
     float xFrameMove = xMove * deltaTime;
     float yFrameMove = yMove * deltaTime;
     owner->transform->addPosition(xFrameMove, yFrameMove);
+
+    if (xFrameMove == 0 && yFrameMove == 0)
+    {
+        animation->setAnimationState(AnimationState::Idle);
+    }
+    else
+    {
+        animation->setAnimationState(AnimationState::Walk);
+    }
+}
+
+void C_KeyboardMovement::awake()
+{
+    animation = owner->getComponent<C_Animation>();
 }

@@ -23,7 +23,7 @@ void ObjectCollection::lateUpdate(float deltaTime)
 
 void ObjectCollection::draw(Window& window)
 {
-    for (constauto& o : objects)
+    for (const auto& o : objects)
     {
         o->draw(window);
     }
